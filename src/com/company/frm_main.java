@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -60,17 +61,22 @@ public class frm_main extends JFrame implements ActionListener{
     {
         JFileChooser jFc = new JFileChooser();
 
-        jFc.showDialog(this,"Please choose a file!");
-        //if(jFc.isValid()) {
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*","*"); // to define file filters
+        jFc.setFileFilter(filter); // applies the filter
 
-            File f = jFc.getSelectedFile();
-            JOptionPane jOptionPane = new JOptionPane();
+        int retVal = jFc.showOpenDialog(getParent()); // modale: waits till the Dialog gets closed
+
+        if(retVal == JFileChooser.APPROVE_OPTION) {
+
+            File f = jFc.getSelectedFile(); // instances a new File f from the selected filepath
+
+            JOptionPane.showMessageDialog(this,f.getAbsolutePath()); // reads the absolute filepath out of the previously selected file
 
 
-            JOptionPane.showMessageDialog(this,f.listFiles());
 
 
 
-       // }
+
+        }
     }
 }
